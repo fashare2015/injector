@@ -1,0 +1,40 @@
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // AutoService: 由 google 开发,
+    // 用于生成 META-INF/services/javax.annotation.processing.Processor
+//    compile 'com.google.auto.service:auto-service:1.0-rc2'
+
+    // rxjava
+    compile 'io.reactivex:rxjava:1.0.14'
+
+    // java 代码生成器: java-1.7, 由 square 开发
+    compile 'com.squareup:javapoet:1.7.0'
+
+    sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_7
+    targetCompatibility = org.gradle.api.JavaVersion.VERSION_1_7
+
+    // kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+
+// kotlin
+apply plugin: 'kotlin'
+buildscript {
+    ext.kotlin_version = '1.0.4'
+    ext.kotlin_version = "1.0.0-rc-1036"
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
